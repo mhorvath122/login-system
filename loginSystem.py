@@ -1,5 +1,6 @@
 from tkinter import *
 import os
+import hashlib
 
 def delete2():
     screen3.destroy()
@@ -126,13 +127,15 @@ def user_not_found():
 
 
 
-def register_user():
+def register_user(event):
     username_info = username.get()
     password_info = password.get()
+    cpyted = hashlib.md5(password_info.encode())
+    
     
     file  = open(username_info, "w")
     file.write(username_info+"\n")
-    file.write(password_info)
+    file.write(cpyted.hexdigest())
     file.close()
     
     username_entry.delete(0, END)
@@ -140,10 +143,13 @@ def register_user():
     
     Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
 
-def login_verify():
+def login_verify(event):
     
     username1 = username_verify.get()
     password1 = password_verify.get()
+    cpyted = hashlib.md5(password1.encode())
+    
+    
     username_entry1.delete(0, END)
     password_entry1.delete(0, END)
     
@@ -151,7 +157,7 @@ def login_verify():
     if username1 in list_of_files:
         file1 = open(username1, "r")
         verify = file1.read().splitlines()
-        if password1 in verify:
+        if cpyted.hexdigest() in verify:
             login_success()
         else: 
             password_not_recognised()
@@ -182,10 +188,13 @@ def register():
     username_entry = Entry(screen1, textvariable = username)
     username_entry.pack()
     Label(screen1, text = "Password * ").pack()
-    password_entry = Entry(screen1, textvariable = password)
+    password_entry = Entry(screen1, show = "*", textvariable = password)
     password_entry.pack()
     Label(screen1, text = "").pack()
-    Button(screen1, text = "Register", width = 10, height = 1, command = register_user).pack()
+    button1 = Button(screen1, text = "Register", width = 10, height = 1)
+    button1.pack()
+    button1.bind("<Button-1>", register_user)
+    screen1.bind("<Return>", register_user)
     
   
     
@@ -215,10 +224,13 @@ def login():
     username_entry1.pack()
     Label(screen2, text = "").pack()
     Label(screen2, text = "Password * ").pack()
-    password_entry1 = Entry(screen2, textvariable = password_verify)
+    password_entry1 = Entry(screen2, show = "*", textvariable = password_verify)
     password_entry1.pack()
     Label(screen2, text = "").pack()
-    Button(screen2, text = "Login", width = 10, height = 1, command = login_verify).pack()
+    button1 = Button(screen2, text = "Login", width = 10, height = 1)
+    button1.pack()
+    button1.bind("<Button-1>", login_verify)
+    screen2.bind("<Return>", login_verify)
     
 def main_screen():
     global screen
@@ -234,3 +246,7 @@ def main_screen():
     screen.mainloop()
 
 main_screen()    
+
+
+
+
