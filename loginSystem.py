@@ -133,7 +133,7 @@ def register_user(event):
     cpyted = hashlib.md5(password_info.encode())
     
     
-    file  = open(username_info, "w")
+    file  = open(".\\users\\"+username_info, "w")
     file.write(username_info+"\n")
     file.write(cpyted.hexdigest())
     file.close()
@@ -153,9 +153,9 @@ def login_verify(event):
     username_entry1.delete(0, END)
     password_entry1.delete(0, END)
     
-    list_of_files = os.listdir()
+    list_of_files = os.listdir(".\\users")
     if username1 in list_of_files:
-        file1 = open(username1, "r")
+        file1 = open(".\\users\\"+username1, "r")
         verify = file1.read().splitlines()
         if cpyted.hexdigest() in verify:
             login_success()
