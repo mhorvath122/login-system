@@ -22,7 +22,7 @@ def save():
     filename = raw_filename.get()
     notes = raw_notes.get()
     
-    data = open(filename, "w")
+    data = open(".\\notes\\" + username1 + "-" + filename, "w")
     data.write(notes)
     data.close()
     
@@ -46,7 +46,7 @@ def create_notes():
 
 def view_notes1():
     filename1 = raw_filename1.get()
-    data = open(filename1, "r")
+    data = open(".\\notes\\" + filename1, "r")
     data1 = data.read()
     screen12 = Toplevel(screen)
     screen12.title("Notes")
@@ -60,7 +60,7 @@ def view_notes():
     screen11 = Toplevel(screen)
     screen11.title("Info")
     screen11.geometry("250x250")
-    all_files = os.listdir()
+    all_files = os.listdir(".\\notes")
     Label(screen11, text = "Please use one of the filenames below").pack()
     Label(screen11, text = all_files).pack()
     global raw_filename1
@@ -71,7 +71,7 @@ def view_notes():
 
 def delete_note1():
     filename3 = raw_filename2.get()
-    os.remove(filename3)
+    os.remove(".\\notes\\" + filename3)
     screen14 = Toplevel(screen)
     screen14.title("Notes")
     screen14.geometry("400x400")
@@ -82,7 +82,7 @@ def delete_note():
     screen13 = Toplevel(screen)
     screen13.title("Info")
     screen13.geometry("250x250")
-    all_files = os.listdir()
+    all_files = os.listdir(".\\notes")
     Label(screen13, text = "Please use one of the filenames below").pack()
     Label(screen13, text = all_files).pack()
     global raw_filename2
@@ -95,9 +95,9 @@ def session():
     screen8.title("Dashboard")
     screen8.geometry("400x400")
     Label(screen8, text = "Welcome to the Dashboard").pack()
-    Button(screen8, text = "Create Note", command = create_notes).pack()
-    Button(screen8, text = "View Note", command = view_notes).pack()
-    Button(screen8, text = "Delete Note", command = delete_note).pack()
+    Button(screen8, text = "Create Note", command = create_notes).pack(pady = 10)
+    Button(screen8, text = "View Note", command = view_notes).pack(pady = 10)
+    Button(screen8, text = "Delete Note", command = delete_note).pack(pady = 10)
     
 
 
@@ -121,8 +121,8 @@ def user_not_found():
     screen5 = Toplevel(screen)
     screen5.title("User Not Found")
     screen5.geometry("150x100")
-    Label(screen5, text = "User Not Found").pack()
-    Button(screen5, text = "OK", command = delete4).pack()
+    Label(screen5, text = "User Not Found", fg = "red").pack(pady = 10)
+    Button(screen5, text = "OK", command = delete4).pack(pady = 10)
     
 
 
@@ -145,6 +145,7 @@ def register_user(event):
 
 def login_verify(event):
     
+    global username1
     username1 = username_verify.get()
     password1 = password_verify.get()
     cpyted = hashlib.md5(password1.encode())
@@ -182,17 +183,15 @@ def register():
     username = StringVar()
     password = StringVar()
     
-    Label(screen1, text = "Please enter details below").pack()
-    Label(screen1, text = "").pack()
-    Label(screen1, text = "Username * ").pack()
+    Label(screen1, text = "Please enter details below").pack(pady = 20)
+    Label(screen1, text = "Username: ").pack()
     username_entry = Entry(screen1, textvariable = username)
-    username_entry.pack()
-    Label(screen1, text = "Password * ").pack()
+    username_entry.pack(pady = 5)
+    Label(screen1, text = "Password: ").pack()
     password_entry = Entry(screen1, show = "*", textvariable = password)
-    password_entry.pack()
-    Label(screen1, text = "").pack()
+    password_entry.pack(pady = 5)
     button1 = Button(screen1, text = "Register", width = 10, height = 1)
-    button1.pack()
+    button1.pack(pady = 20)
     button1.bind("<Button-1>", register_user)
     screen1.bind("<Return>", register_user)
     
@@ -207,8 +206,7 @@ def login():
     screen2 = Toplevel(screen)
     screen2.title("Login")
     screen2.geometry("300x250")
-    Label(screen2, text = "Please enter details below to login").pack()
-    Label(screen2, text = "").pack()
+    Label(screen2, text = "Please enter details below to login").pack(pady = 20)
     
     global username_verify
     global password_verify
@@ -221,14 +219,12 @@ def login():
     
     Label(screen2, text = "Username * ").pack()
     username_entry1 = Entry(screen2, textvariable = username_verify)
-    username_entry1.pack()
-    Label(screen2, text = "").pack()
+    username_entry1.pack(pady = 5)
     Label(screen2, text = "Password * ").pack()
     password_entry1 = Entry(screen2, show = "*", textvariable = password_verify)
-    password_entry1.pack()
-    Label(screen2, text = "").pack()
+    password_entry1.pack(pady = 5)
     button1 = Button(screen2, text = "Login", width = 10, height = 1)
-    button1.pack()
+    button1.pack(pady = 20)
     button1.bind("<Button-1>", login_verify)
     screen2.bind("<Return>", login_verify)
     
@@ -237,10 +233,8 @@ def main_screen():
     screen = Tk()
     screen.geometry("300x250")
     screen.title("Notes 1.0")
-    Label(text = "Notes 1.0", bg = "grey", width = "300", height = "2", font = ("Calibri", 13)).pack()
-    Label(text = "").pack()
-    Button(text = "Login", height = "2", width = "30", command = login).pack()
-    Label(text = "").pack()
+    Label(text = "Notes 1.0", bg = "grey", width = "300", height = "2", font = ("Calibri", 13)).pack(pady = 10)
+    Button(text = "Login", height = "2", width = "30", command = login).pack(pady = 20)
     Button(text = "Register", height = "2", width = "30", command = register).pack()
     
     screen.mainloop()
