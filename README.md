@@ -106,3 +106,87 @@ Regisztráció esetén kimenti a felhasználónevet és a hashelt jelszót egy f
         button1.bind("<Button-1>", login_verify)
         screen2.bind("<Return>", login_verify)
   ```
+
+Sikeres belépés után nyitottunk a Session-t. Itt 3 menü érhető el, a Create Note, a View Note és a Delete Note.
+
+   ```python
+   def session():
+        screen8 = Toplevel(screen)
+        screen8.title("Dashboard")
+        screen8.geometry("400x400")
+        Label(screen8, text = "Welcome to the Dashboard").pack()
+        Button(screen8, text = "Create Note", command = create_notes).pack(pady = 10)
+        Button(screen8, text = "View Note", command = view_notes).pack(pady = 10)
+        Button(screen8, text = "Delete Note", command = delete_note).pack(pady = 10)
+   ```
+Create Note esetén beírhatunk egy file-nevet, amit létrehozz 'felhasználónév'-'fájlnév' formában. Minden alkalommal hozzáfüzhetünk a már létező jegyzetünkhöz új sorokat, ami addig növekszik, míg nem töröljük az egész file-t.   
+   
+   ```python 
+       def create_notes():
+            global raw_filename
+            raw_filename = StringVar()
+            global raw_notes
+            raw_notes = StringVar()
+
+            screen9 = Toplevel(screen)
+            screen9.title("Info")
+            screen9.geometry("300x250")
+            Label(screen9, text = "Please enter a filename for the note below: ").pack()
+            Entry(screen9, textvariable = raw_filename).pack()
+            Label(screen9, text = "Please enter the notes for the file below: ").pack()
+            entry1 = Entry(screen9, textvariable = raw_notes)
+            entry1.pack()
+            button = Button(screen9, text = "Save")
+            button.pack()
+            button.bind('<Button-1>', save)
+            screen9.bind('<Return>', save)
+   ```
+
+View Note esetén kilistázza a felhasználónkhoz kapcsolodó fileokat, ha beírjuk a nevét a fájlnak, akkor megnyitja a tartalmát. Más felhasználók fájlaihoz nincs hozzáférésünk.
+    ```python 
+        def view_notes():
+            screen11 = Toplevel(screen)
+            screen11.title("Info")
+            screen11.geometry("250x250")
+            all_files = os.listdir(".\\notes")
+            user_files = []
+
+            for x in all_files:
+                y = x.split('-')
+                if y[0] == username1:
+                    user_files.append(y[1])
+
+            Label(screen11, text = "Please use one of the filenames below").pack()
+            Label(screen11, text = user_files).pack()
+            global raw_filename1
+            raw_filename1 = StringVar()
+            Entry(screen11, textvariable = raw_filename1).pack()
+            button = Button(screen11, command = view_notes1, text = "OK")
+            button.pack()
+            button.bind('<Button-1>', view_notes1)
+            screen11.bind('<Return>', view_notes1)
+   ```
+   Delete Note esetén hasonló történik, mint a View Note esetén, viszont ez esetben töröljük a file-t nem megnyitjuk. 
+    ```python 
+    def delete_note():
+    screen13 = Toplevel(screen)
+    screen13.title("Info")
+    screen13.geometry("250x250")
+    all_files = os.listdir(".\\notes")
+    user_files = []
+    
+    for x in all_files:
+        y = x.split('-')
+        if y[0] == username1:
+            user_files.append(y[1])
+    
+    Label(screen13, text = "Please use one of the filenames below").pack()
+    Label(screen13, text = user_files).pack()
+    global raw_filename2
+    raw_filename2 = StringVar()
+    Entry(screen13, textvariable = raw_filename2).pack()
+    button = Button(screen13, command = delete_note1, text = "OK")
+    button.pack()
+    button.bind('<Button-1>', delete_note1)
+    screen13.bind('<Return>', delete_note1)
+   ```
