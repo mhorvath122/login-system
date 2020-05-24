@@ -52,6 +52,9 @@ Induláskor létrehozunk 2 mappát, ha nincsenek még létrehozva a 'users' és 
 
 Regisztráció esetén kimenti a felhasználónevet és a hashelt jelszót egy fileba a 'users' mappába, később ezek között fogja keresni a felhasználónevet és a jelszavat. 
 
+
+<img src="./images/2.png" width="300" align="middle">
+
 ```python
     def register():
         global screen1
@@ -80,6 +83,9 @@ Regisztráció esetén kimenti a felhasználónevet és a hashelt jelszót egy f
  ```  
  
  Belépéskor a regisztrált felhasználók közül keresi, hogy létezik-e a felhasználó, ha nem akkor azt írja ki, ha létezik a felhasználó, akkor ellenőrzi, hogy jó-e a jelszó. Mivel hashelve van tárolva a jelszó, neki is hashelni kell, amit beírunk ide.
+ 
+ 
+ <img src="./images/3.png" width="300" align="middle">
  
  ```python
    def login():
@@ -112,6 +118,9 @@ Regisztráció esetén kimenti a felhasználónevet és a hashelt jelszót egy f
 
 Sikeres belépés után nyitottunk a Session-t. Itt 3 menü érhető el, a Create Note, a View Note és a Delete Note.
 
+
+<img src="./images/4.png" width="300" align="middle">
+
    ```python
    def session():
         screen8 = Toplevel(screen)
@@ -123,6 +132,9 @@ Sikeres belépés után nyitottunk a Session-t. Itt 3 menü érhető el, a Creat
         Button(screen8, text = "Delete Note", command = delete_note).pack(pady = 10)
    ```
 Create Note esetén beírhatunk egy file-nevet, amit létrehozz 'felhasználónév'-'fájlnév' formában. Minden alkalommal hozzáfüzhetünk a már létező jegyzetünkhöz új sorokat, ami addig növekszik, míg nem töröljük az egész file-t.   
+   
+   
+   <img src="./images/5.png" width="300" align="middle">
    
    ```python 
        def create_notes():
@@ -146,6 +158,9 @@ Create Note esetén beírhatunk egy file-nevet, amit létrehozz 'felhasználón�
    ```
 
 View Note esetén kilistázza a felhasználónkhoz kapcsolodó fileokat, ha beírjuk a nevét a fájlnak, akkor megnyitja a tartalmát. Más felhasználók fájlaihoz nincs hozzáférésünk.
+
+<img src="./images/5.png" width="300" align="middle">
+
    ```python 
         def view_notes():
             screen11 = Toplevel(screen)
@@ -170,6 +185,9 @@ View Note esetén kilistázza a felhasználónkhoz kapcsolodó fileokat, ha beí
             screen11.bind('<Return>', view_notes1)
    ```
    Delete Note esetén hasonló történik, mint a View Note esetén, viszont ez esetben töröljük a file-t nem megnyitjuk. 
+   
+   
+   <img src="./images/6.png" width="300" align="middle">
    
    ```python 
     def delete_note():
