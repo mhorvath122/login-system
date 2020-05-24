@@ -1,7 +1,7 @@
 # Egyszerű beléptető rendszer felület, jegyzet készítés funkcióval  (Login System)
 ## Bevezetés
 
-A program célja az, hogy kezelni tudja a felhasználókat. Mindenki csak a saját jegyzeteihez férjen hozzá, a jelszavakat pedig hashelés után tároljuk, hogy ne lehesen kiolvasni.
+A program célja az, hogy kezelni tudja a felhasználókat. Mindenki csak a saját jegyzeteihez fér hozzá, a jelszavakat pedig hashelés után tároljuk, hogy ne lehesen kiolvasni.
 
 A következő funkciókat valósítottuk meg:
 
