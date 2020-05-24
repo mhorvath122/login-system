@@ -19,7 +19,7 @@ használt könyvtárak:
  * os
  * hashlib
 
-'''python
+```python
 
     def main_screen():
         try:
@@ -41,4 +41,4 @@ használt könyvtárak:
         Button(text = "Register", height = "2", width = "30", command = register).pack()
 
         screen.mainloop()
-'''
+```
