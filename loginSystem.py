@@ -2,15 +2,19 @@ from tkinter import *
 import os
 import hashlib
 
-def delete2():
-    screen3.destroy()
 
-def delete3():
+
+
+ #Destroy Password not recognised Window
+def delete():
     screen4.destroy()
-    
-def delete4():
+ #Destroy User not found Window    
+def delete1():
     screen5.destroy()
-
+ 
+    
+ 
+ # After Save popup Window
 def saved():
     screen10 = Toplevel(screen)
     screen10.title("Saved")
@@ -18,6 +22,8 @@ def saved():
     Label(screen10, text = "Saved").pack()
 
 
+
+ # Event after pressed the button in Create Notes Window 
 def save(event):
     filename = raw_filename.get()
     notes = raw_notes.get()
@@ -29,6 +35,8 @@ def save(event):
     saved()
 
 
+
+ #Create Notes Window
 def create_notes():
     global raw_filename
     raw_filename = StringVar()
@@ -47,20 +55,23 @@ def create_notes():
     button.pack()
     button.bind('<Button-1>', save)
     screen9.bind('<Return>', save)
+   
     
-
+   
+ # Event after pressed the button in View Notes Window
 def view_notes1(event):
     filename1 = raw_filename1.get()
     data = open(".\\notes\\" + username1 + '-' + filename1, "r")
     data1 = data.read()
     screen12 = Toplevel(screen)
-    screen12.title("Notes")
+    screen12.title(raw_filename1.get())
     screen12.geometry("400x400")
     Label(screen12, text = data1).pack()
-    Label(screen12, text = all_files).pack()
     data.close()
 
 
+
+ # View Notes Window
 def view_notes():
     screen11 = Toplevel(screen)
     screen11.title("Info")
@@ -84,6 +95,8 @@ def view_notes():
     screen11.bind('<Return>', view_notes1)
 
 
+
+ # Event after pressed the button in Delete Note Window
 def delete_note1(event):
     filename3 = username1 + "-" + raw_filename2.get()
     os.remove(".\\notes\\" + filename3)
@@ -93,6 +106,8 @@ def delete_note1(event):
     Label(screen14, text = raw_filename2.get() + " removed").pack()
    
 
+
+ # Delete Note Window 
 def delete_note():
     screen13 = Toplevel(screen)
     screen13.title("Info")
@@ -115,6 +130,9 @@ def delete_note():
     button.bind('<Button-1>', delete_note1)
     screen13.bind('<Return>', delete_note1)
 
+
+
+ # Start Session after logged in
 def session():
     screen8 = Toplevel(screen)
     screen8.title("Dashboard")
@@ -126,12 +144,14 @@ def session():
     
 
 
+ # If the login was successful
 def login_success():
     session()
     screen2.destroy()
     
     
-    
+
+ # If the password is wrong    
 def password_not_recognised():
     
     global screen4
@@ -141,6 +161,9 @@ def password_not_recognised():
     Label(screen4, text = "Password Error").pack()
     Button(screen4, text = "OK", command = delete3).pack()
     
+    
+    
+ # If the user name is not exist    
 def user_not_found():
     
     global screen5
@@ -152,7 +175,7 @@ def user_not_found():
     
 
 
-
+ # Event after pressed the button in Register Window
 def register_user(event):
     username_info = username.get()
     password_info = password.get()
@@ -169,6 +192,10 @@ def register_user(event):
     
     Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
 
+
+
+
+ # Event after pressed the button in Login Window
 def login_verify(event):
     
     global username1
@@ -194,8 +221,7 @@ def login_verify(event):
     
     
     
-    
-
+ # Register Window
 def register():
     global screen1
     screen1 = Toplevel(screen)
@@ -223,10 +249,7 @@ def register():
     
   
     
-    
-    
-    
-    
+ #Login Window  
 def login():
     global screen2
     screen2 = Toplevel(screen)
@@ -254,7 +277,20 @@ def login():
     button1.bind("<Button-1>", login_verify)
     screen2.bind("<Return>", login_verify)
     
+    
+    
+ #Startup Window   
 def main_screen():
+    try:
+        os.mkdir('users')
+    except FileExistsError:
+        pass
+    
+    try:
+        os.mkdir('notes')
+    except FileExistsError:
+        pass
+    
     global screen
     screen = Tk()
     screen.geometry("300x250")
