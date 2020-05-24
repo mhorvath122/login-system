@@ -20,6 +20,7 @@ használt könyvtárak:
 *hashlib
 
 ''' python
+
 def main_screen():
     try:
         os.mkdir('users')
