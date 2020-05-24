@@ -19,7 +19,7 @@ használt könyvtárak:
  * os
  * hashlib
 
-''' python
+'''python
 
     def main_screen():
         try:
