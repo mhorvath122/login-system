@@ -18,12 +18,12 @@ def saved():
     Label(screen10, text = "Saved").pack()
 
 
-def save():
+def save(event):
     filename = raw_filename.get()
     notes = raw_notes.get()
     
-    data = open(".\\notes\\" + username1 + "-" + filename, "w")
-    data.write(notes)
+    data = open(".\\notes\\" + username1 + "-" + filename, "a")
+    data.write(notes + '\n')
     data.close()
     
     saved()
@@ -41,12 +41,17 @@ def create_notes():
     Label(screen9, text = "Please enter a filename for the note below: ").pack()
     Entry(screen9, textvariable = raw_filename).pack()
     Label(screen9, text = "Please enter the notes for the file below: ").pack()
-    Entry(screen9, textvariable = raw_notes).pack()
-    Button(screen9, text = "Save", command = save).pack()
+    entry1 = Entry(screen9, textvariable = raw_notes)
+    entry1.pack()
+    button = Button(screen9, text = "Save")
+    button.pack()
+    button.bind('<Button-1>', save)
+    screen9.bind('<Return>', save)
+    
 
-def view_notes1():
+def view_notes1(event):
     filename1 = raw_filename1.get()
-    data = open(".\\notes\\" + filename1, "r")
+    data = open(".\\notes\\" + username1 + '-' + filename1, "r")
     data1 = data.read()
     screen12 = Toplevel(screen)
     screen12.title("Notes")
@@ -61,21 +66,31 @@ def view_notes():
     screen11.title("Info")
     screen11.geometry("250x250")
     all_files = os.listdir(".\\notes")
+    user_files = []
+    
+    for x in all_files:
+        y = x.split('-')
+        if y[0] == username1:
+            user_files.append(y[1])
+
     Label(screen11, text = "Please use one of the filenames below").pack()
-    Label(screen11, text = all_files).pack()
+    Label(screen11, text = user_files).pack()
     global raw_filename1
     raw_filename1 = StringVar()
     Entry(screen11, textvariable = raw_filename1).pack()
-    Button(screen11, command = view_notes1, text = "OK").pack()
+    button = Button(screen11, command = view_notes1, text = "OK")
+    button.pack()
+    button.bind('<Button-1>', view_notes1)
+    screen11.bind('<Return>', view_notes1)
 
 
-def delete_note1():
-    filename3 = raw_filename2.get()
+def delete_note1(event):
+    filename3 = username1 + "-" + raw_filename2.get()
     os.remove(".\\notes\\" + filename3)
     screen14 = Toplevel(screen)
     screen14.title("Notes")
     screen14.geometry("400x400")
-    Label(screen14, text = filename3 + " removed").pack()
+    Label(screen14, text = raw_filename2.get() + " removed").pack()
    
 
 def delete_note():
@@ -83,12 +98,22 @@ def delete_note():
     screen13.title("Info")
     screen13.geometry("250x250")
     all_files = os.listdir(".\\notes")
+    user_files = []
+    
+    for x in all_files:
+        y = x.split('-')
+        if y[0] == username1:
+            user_files.append(y[1])
+    
     Label(screen13, text = "Please use one of the filenames below").pack()
-    Label(screen13, text = all_files).pack()
+    Label(screen13, text = user_files).pack()
     global raw_filename2
     raw_filename2 = StringVar()
     Entry(screen13, textvariable = raw_filename2).pack()
-    Button(screen13, command = delete_note1, text = "OK").pack()
+    button = Button(screen13, command = delete_note1, text = "OK")
+    button.pack()
+    button.bind('<Button-1>', delete_note1)
+    screen13.bind('<Return>', delete_note1)
 
 def session():
     screen8 = Toplevel(screen)
@@ -103,6 +128,7 @@ def session():
 
 def login_success():
     session()
+    screen2.destroy()
     
     
     
