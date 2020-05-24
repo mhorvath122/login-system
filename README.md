@@ -22,7 +22,7 @@ használt könyvtárak:
 ## A program felépítése
 
 Induláskor létrehozunk 2 mappát, ha nincsenek még létrehozva a 'users' és a 'notes' mappát. Ezután feljön a kezdőképernyő, ahol 2 lehetőségünk van belépni vagy regisztrálni. 
-<img src="./images/1" width="400" align="middle">
+<img src="./images/1.jpg" width="400" align="middle">
 
 ```python
 
