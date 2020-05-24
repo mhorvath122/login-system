@@ -143,7 +143,7 @@ Create Note esetén beírhatunk egy file-nevet, amit létrehozz 'felhasználón�
    ```
 
 View Note esetén kilistázza a felhasználónkhoz kapcsolodó fileokat, ha beírjuk a nevét a fájlnak, akkor megnyitja a tartalmát. Más felhasználók fájlaihoz nincs hozzáférésünk.
-    ```python 
+   ```python 
         def view_notes():
             screen11 = Toplevel(screen)
             screen11.title("Info")
@@ -167,7 +167,8 @@ View Note esetén kilistázza a felhasználónkhoz kapcsolodó fileokat, ha beí
             screen11.bind('<Return>', view_notes1)
    ```
    Delete Note esetén hasonló történik, mint a View Note esetén, viszont ez esetben töröljük a file-t nem megnyitjuk. 
-    ```python 
+   
+   ```python 
     def delete_note():
     screen13 = Toplevel(screen)
     screen13.title("Info")
